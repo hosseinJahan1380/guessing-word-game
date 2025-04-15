@@ -50,9 +50,11 @@ input{
     width: 100%;
 }
 .section button{
-    width:50px;
-    height: 50px;
+    width : 50px;
+    height : 50px;
     cursor: pointer;
+    color: transparent;
+    font-size: 15px;
     border: none;
     border-radius: 8px;
 }
@@ -87,8 +89,18 @@ input{
 }
 .box_False_letters{
     border: 1px solid #333;
-    padding: 18px 10px;
-    width: 80%;
+    display: flex;
+    padding: 18px 8px;
+    width: 90%;
+}
+.box_False_letters button{
+    width: 40px;
+    height: 40px;
+    padding:5px;
+    font-size: 15px;
+    margin: 0 5px;
+    border:none;
+    background-color: transparent;
 }
 .remaining_false_letters{
     padding: 8px;
