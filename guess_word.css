@@ -58,8 +58,15 @@ input{
     border: none;
     border-radius: 8px;
 }
-/* .active{
-    display: block;
+.section button.filled{
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0 ,0 ,0,0.1 );
+    transition: all 0.2s ease-in-out;
+}
+/* .filled:hover{
+    background-color: #f0f0f0;
+    transform: scale(1.1);
 } */
 .hidden{
     display: none;
@@ -109,14 +116,15 @@ input{
     font-weight: bold;
     font-family: 'Lato' , sans-serif;
 }
-.next{
+.result_button{
     padding: 10px 20px;
-    background-color: rgb(20, 210, 20);
-    color: blue;
+    background-color: rgb(217, 228, 13);
+    color: rgb(255, 0, 0);
     border: none;
     display: none;
     border-radius: 8px;
+    font-weight: bold;
     font-family: 'Montserrat' , sans-serif;
     margin: 10px 0;
-    opacity: 40%;
+    opacity: 90%;
 }

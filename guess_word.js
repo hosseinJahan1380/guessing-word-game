@@ -4,7 +4,20 @@ const input = document.querySelector("input")
 const guess_button = document.querySelector(".Guess")
 const false_buttons = document.querySelectorAll(".box_False_letters button")
 const remaining_false_letters = document.querySelector(".remaining_false_letters")
-const next_level_button = document.querySelector(".next")
+const result_button = document.querySelector(".result_button")
+
+
+
+// set a word randomly for buttons_word
+const words = ["apple", "brush", "crane", "dream", "eagle", "flame", "grape", "house", "index", "jelly",
+    "knife", "lemon", "mouse", "night", "ocean", "plant", "queen", "river", "stone", "tiger"];
+
+// Pick a random word
+const randomWord = words[Math.floor(Math.random() * words.length)];
+
+buttons_word.forEach((btn , index)=>{
+    btn.textContent = randomWord[index]
+})
 
 // enter a character to guess
 input.addEventListener( "input", ()=>{
@@ -25,8 +38,7 @@ guess_button.addEventListener("click" , ()=>{
             console.log(guess_value === letter)
             // compare the letter we enter with the letters inside buttons
             if (letter === guess_value){
-                btn.style.color = "#333"
-                btn.style.backgroundColor = "#fff"
+                btn.classList.add("filled")
                 existence_letter = true
             }  
             
@@ -34,16 +46,19 @@ guess_button.addEventListener("click" , ()=>{
         var number_fill = 0
         for (let i =0  ; i<buttons_word.length ; i++){
             btn = buttons_word[i]
-            if (btn.style.color==="#333"){
+            if (btn.classList.contains("filled")){
                 number_fill++;
             }
         }
         console.log("the number of fill buttons :" , number_fill)
-        // check if all buttons word are fill or not
+        // the level all letters are correct
         if (number_fill == buttons_word.length){
-            next_level_button.style.display = "inline-block"
+            result_button.style.display = "inline-block"
+            result_button.textContent= "Next Level"
         }
         
+        
+        //collect false letters
         if(existence_letter==false){
             for (let i=0 ; i<false_buttons.length ;i++) {
                 btn = false_buttons[i]
@@ -59,6 +74,11 @@ guess_button.addEventListener("click" , ()=>{
                     break;
                 }
             }
+        }
+        // the level the word could not be found
+        if (remaining_false_letters.textContent === '0'){
+            result_button.style.display = "inline-block"
+            result_button.textContent= "Play again"
         }
     }
 })
