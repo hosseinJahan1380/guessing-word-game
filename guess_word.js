@@ -1,11 +1,11 @@
 
 let section_level =0
 const sections = document.querySelectorAll('.section')
-const buttons_word = document.querySelectorAll('.section button');
+let buttons_word = document.querySelectorAll('.section button');
 const input = document.querySelector("input")
 const guess_button = document.querySelector(".Guess")
 const false_buttons = document.querySelectorAll(".box_False_letters button")
-const remaining_false_letters = document.querySelector(".remaining_false_letters")
+let remaining_false_letters = document.querySelector(".remaining_false_letters")
 const result_button = document.querySelector(".result_button")
 
 
@@ -38,27 +38,78 @@ const randomWord2 = words_level2[Math.floor(Math.random() * words_level2.length)
 const randomWord3 = words_level3[Math.floor(Math.random() * words_level3.length)];
 const randomWord4 = words_level4[Math.floor(Math.random() * words_level4.length)];
 
-choosing_word_level = ()=>{
-    buttons_word.forEach((btn , index )=>{
-        if (section_level == 0){
-            console.log("section level is : " , section_level)
-            btn.textContent = randomWord[index]
-        }
-        if(section_level == 1){
-            console.log("section level is : " , section_level)
-            btn.textContent = randomWord2[index]
-        }
-        if(section_level == 2){
-            console.log("section level is : " , section_level)
-            btn.textContent = randomWord3[index]
-        }
-        if(section_level == 3){
-            console.log("section level is : " , section_level)
-            btn.textContent = randomWord4[index]
-        }
+
+
+clear_box_false_letters = () =>{
+    console.log("clear rest of false letters ")
+    // hide result button at the bottom of page
+    result_button.style.display = "none"
+
+    // update the number of false letters 
+    remaining_false_letters.textContent = "11"
+
+    false_buttons.forEach(btn=>{
+        btn.classList.remove("appeared")
+        btn.textContent = ""
     })
 }
+
+choosing_word_level = ()=>{
+ 
+    if (section_level == 0){
+
+        // clear all false letters from previous level
+        clear_box_false_letters()
+        console.log("section level is : " , section_level)
+        buttons_word = document.querySelectorAll("#word1 button")
+        console.log("length :" , buttons_word.length)
+
+        buttons_word.forEach((btn , index)=>{
+            btn.textContent = randomWord[index]
+            btn.classList.remove("filled")
+        })
+    }
+    if(section_level == 1){
+
+        // clear all false letters from previous level
+        clear_box_false_letters()
+        
+        console.log("section level is : " , section_level)
+        buttons_word = document.querySelectorAll("#word2 button")
+        buttons_word.forEach((btn , index)=>{
+            btn.textContent = randomWord2[index]
+            btn.classList.remove("filled")
+        })
+    }
+    if(section_level == 2){
+
+        // clear all false letters from previous level
+        clear_box_false_letters()
+
+        console.log("section level is : " , section_level)
+        buttons_word = document.querySelectorAll("#word3 button")
+
+        buttons_word.forEach((btn , index)=>{
+            btn.textContent = randomWord3[index]
+            btn.classList.remove("filled")
+        })
+    }
+    if(section_level == 3){
+
+        // clear all false letters from previous level
+        clear_box_false_letters()
+        console.log("section level is : " , section_level)
+        buttons_word = document.querySelectorAll("#word4 button")
+
+        buttons_word.forEach((btn , index)=>{
+            btn.textContent = randomWord4[index]
+            btn.classList.remove("filled")
+        })
+    }
+}
 choosing_word_level()
+
+
 
 
 // enter a character to guess
@@ -72,12 +123,12 @@ input.addEventListener( "input", ()=>{
 guess_button.addEventListener("click" , ()=>{
     existence_letter = false;
     if ( input.value !="" ){
+        console.log("the length of buttons_word :" , buttons_word.length)
         guess_value = input.value.trim().toLowerCase()  // the letter we guess
 
         buttons_word.forEach(btn =>{
             letter = btn.textContent.trim().toLowerCase()
 
-            console.log(guess_value === letter)
             // compare the letter we enter with the letters inside buttons
             if (letter === guess_value){
                 btn.classList.add("filled")
@@ -93,7 +144,6 @@ guess_button.addEventListener("click" , ()=>{
             }
         }
         console.log("the number of fill buttons :" , number_fill)
-        console.log("buttons_word length :" , buttons_word.length)
         // the level the word is found - win level logic
         if (number_fill == buttons_word.length){
             result_button.style.display = "inline-block"
@@ -108,11 +158,9 @@ guess_button.addEventListener("click" , ()=>{
                 if (btn.textContent===""){
                     // Update the number of remaining false letters
                     remaining_false_letters.textContent--;
-           
-                   
+                    // show the false letter
+                    btn.classList.add("appeared")
                     btn.textContent = guess_value;
-                    btn.style.color = "red";
-                    btn.style.borderBottom = "1px solid red";
                     break;
                 }
             }
@@ -127,27 +175,30 @@ guess_button.addEventListener("click" , ()=>{
 // press button next to guess another word -win level
 result_button.addEventListener("click" , ()=>{
     
-    sections.forEach((section ,index )=>{
-       
+    for (let i =0 ; i<sections.length ; i++) {
+        const section = sections[i]
+
         //find active section
         if (!section.classList.contains('hidden')){
-        
+
+            section_level = i
             if (result_button.textContent === "Play Again"){
-                section_level = index
                 console.log("losing level")
+                choosing_word_level()
             }
             else if (result_button.textContent === "Next Level"){
-                section_level = index
                 section.classList.add("hidden")
-
-                const nextSection = sections[section_level+1]
+                section_level++
+                const nextSection = sections[section_level]
                 if(nextSection){
                     console.log("nextSection appeared")
                     nextSection.classList.remove("hidden")
+                    choosing_word_level()
                 }
             }
+            break
         } 
-    })
+    }
 })
 
 

@@ -57,12 +57,15 @@ input{
     font-size: 15px;
     border: none;
     border-radius: 8px;
+    transition: all 0.3s ease-in-out ;
 }
 .section button.filled{
-    color: #333;
-    background-color: #fff;
+    color: #2b00ff;
+    background-color: #e3f800;
+    font-size: 18px;
     box-shadow: 0 2px 5px rgba(0 ,0 ,0,0.1 );
-    transition: all 0.2s ease-in-out;
+    transform: scale(1.09);
+    
 }
 /* .filled:hover{
     background-color: #f0f0f0;
@@ -109,6 +112,10 @@ input{
     margin: 0 5px;
     border:none;
     background-color: transparent;
+}
+.box_False_letters button.appeared{
+    color : red;
+    border-bottom:   1px solid red;
 }
 .remaining_false_letters{
     padding: 8px;
