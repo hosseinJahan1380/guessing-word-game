@@ -32,16 +32,10 @@ const words_level4= [
     "man", "map", "toy", "bag", "fan", "net", "key", "bus",
     "egg", "bed", "lip", "bat", "cow", "owl", "pot"
     ];
-// Pick a random word
-const randomWord = words_level1[Math.floor(Math.random() * words_level1.length)];
-const randomWord2 = words_level2[Math.floor(Math.random() * words_level2.length)];
-const randomWord3 = words_level3[Math.floor(Math.random() * words_level3.length)];
-const randomWord4 = words_level4[Math.floor(Math.random() * words_level4.length)];
-
 
 
 clear_box_false_letters = () =>{
-    console.log("clear rest of false letters ")
+
     // hide result button at the bottom of page
     result_button.style.display = "none"
 
@@ -56,13 +50,15 @@ clear_box_false_letters = () =>{
 
 choosing_word_level = ()=>{
  
+    clear_box_false_letters()
+
     if (section_level == 0){
 
         // clear all false letters from previous level
-        clear_box_false_letters()
         console.log("section level is : " , section_level)
         buttons_word = document.querySelectorAll("#word1 button")
-        console.log("length :" , buttons_word.length)
+
+        const randomWord = words_level1[Math.floor(Math.random() * words_level1.length)];   
 
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord[index]
@@ -72,10 +68,12 @@ choosing_word_level = ()=>{
     if(section_level == 1){
 
         // clear all false letters from previous level
-        clear_box_false_letters()
         
         console.log("section level is : " , section_level)
         buttons_word = document.querySelectorAll("#word2 button")
+
+        const randomWord2 = words_level2[Math.floor(Math.random() * words_level2.length)];
+
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord2[index]
             btn.classList.remove("filled")
@@ -89,6 +87,8 @@ choosing_word_level = ()=>{
         console.log("section level is : " , section_level)
         buttons_word = document.querySelectorAll("#word3 button")
 
+        const randomWord3 = words_level3[Math.floor(Math.random() * words_level3.length)];
+        
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord3[index]
             btn.classList.remove("filled")
@@ -100,6 +100,9 @@ choosing_word_level = ()=>{
         clear_box_false_letters()
         console.log("section level is : " , section_level)
         buttons_word = document.querySelectorAll("#word4 button")
+
+        const randomWord4 = words_level4[Math.floor(Math.random() * words_level4.length)];
+
 
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord4[index]
@@ -145,9 +148,14 @@ guess_button.addEventListener("click" , ()=>{
         }
         console.log("the number of fill buttons :" , number_fill)
         // the level the word is found - win level logic
-        if (number_fill == buttons_word.length){
+        if (number_fill == buttons_word.length && section_level<3){
             result_button.style.display = "inline-block"
             result_button.textContent= "Next Level"
+        }
+        if (number_fill == buttons_word.length && section_level==3) {
+            result_button.style.display = "inline-block"
+            result_button.textContent= "EndGame"
+            result_button.style.color = "green"
         }
         
         
@@ -189,11 +197,13 @@ result_button.addEventListener("click" , ()=>{
             else if (result_button.textContent === "Next Level"){
                 section.classList.add("hidden")
                 section_level++
-                const nextSection = sections[section_level]
-                if(nextSection){
-                    console.log("nextSection appeared")
-                    nextSection.classList.remove("hidden")
-                    choosing_word_level()
+                if (section_level <=3){
+                    const nextSection = sections[section_level]
+                    if(nextSection){
+                        console.log("nextSection appeared")
+                        nextSection.classList.remove("hidden")
+                        choosing_word_level()
+                    }
                 }
             }
             break
