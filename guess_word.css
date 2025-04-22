@@ -11,7 +11,11 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right, #a1c4fd, #c2e9fb); 
+    /* background: linear-gradient(to right, #a1c4fd, #c2e9fb); */
+    background-image: url("arrangement-green-leaves-with-copy-space.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; 
 }
 
 input{
