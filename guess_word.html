@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess Words</title>
     <link rel="stylesheet" href="guess_word.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&family=Poppins&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+
 </head>
 <body>
     <div class="container">
         <div class="box word">
-            <div class="section" id="word1">
+            <div class="section" id="word1" style="background: url(autumn-flat-lay-background-white.jpg); background-size: cover;">
                 <button></button>
                 <button></button>
                 <button></button>
                 <button></button>
                 <button></button>
             </div>
-            <div class="section hidden" id="word2">
+            <div class="section hidden" id="word2" style="background: url(2287ad64-af06-4ac6-a810-ac47b2d5def6.jpg); background-size: cover;">
                 <button></button>
                 <button></button>
                 <button></button>
@@ -25,13 +28,13 @@
                 <button></button>
                 <button></button>
             </div>
-            <div class="section hidden" id="word3">
+            <div class="section hidden" id="word3" style="background: url(2211.w046.n005.385B.p1.385.jpg); background-size: cover;">
                 <button></button>
                 <button></button>
                 <button></button>
                 <button></button>
             </div>
-            <div class="section hidden" id="word4">
+            <div class="section hidden" id="word4" style="background: url(f76be7c8-78ba-4bec-9306-a6261448d231.jpg); background-size: cover;">
                 <button></button>
                 <button></button>
                 <button></button>
@@ -39,7 +42,9 @@
         </div>
         <div class="guess letters">
             <input type="text" placeholder="Type a letter" id="letter">
-            <button class="Guess">Select</button>
+            <button class="Guess">Guess
+                <i class='bx bx-question-mark'></i>
+            </button>
         </div>
         <div class="wrong letters">
             <div class="box_False_letters">

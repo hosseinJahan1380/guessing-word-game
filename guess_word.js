@@ -126,7 +126,7 @@ input.addEventListener( "input", ()=>{
 guess_button.addEventListener("click" , ()=>{
     existence_letter = false;
     if ( input.value !="" ){
-        console.log("the length of buttons_word :" , buttons_word.length)
+        // input.value =""
         guess_value = input.value.trim().toLowerCase()  // the letter we guess
 
         buttons_word.forEach(btn =>{
@@ -180,6 +180,8 @@ guess_button.addEventListener("click" , ()=>{
         }
     }
 })
+// press Enter keyword to guess
+
 // press button next to guess another word -win level
 result_button.addEventListener("click" , ()=>{
     
