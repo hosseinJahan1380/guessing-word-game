@@ -122,12 +122,12 @@ input.addEventListener( "input", ()=>{
     }
 })
 
-// revive a character from input
-guess_button.addEventListener("click" , ()=>{
+const guessing_word = ()=> {
     existence_letter = false;
     if ( input.value !="" ){
-        // input.value =""
+
         guess_value = input.value.trim().toLowerCase()  // the letter we guess
+        input.value = ""
 
         buttons_word.forEach(btn =>{
             letter = btn.textContent.trim().toLowerCase()
@@ -179,8 +179,16 @@ guess_button.addEventListener("click" , ()=>{
             result_button.textContent= "Play Again"
         }
     }
-})
+}
+// press guess button 
+guess_button.addEventListener("click" , guessing_word) 
+
 // press Enter keyword to guess
+document.addEventListener("keydown" ,(e)=>{
+    if(e.code === "Enter"){
+        guessing_word()
+    }
+})
 
 // press button next to guess another word -win level
 result_button.addEventListener("click" , ()=>{
