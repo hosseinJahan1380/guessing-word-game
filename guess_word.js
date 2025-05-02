@@ -1,5 +1,8 @@
 
 let section_level =0
+const countDownEl = document.querySelector(".countDown")
+let time = 5 *60; 
+let timer;
 const sections = document.querySelectorAll('.section')
 let buttons_word = document.querySelectorAll('.section button');
 const input = document.querySelector("input")
@@ -7,6 +10,7 @@ const guess_button = document.querySelector(".Guess")
 const false_buttons = document.querySelectorAll(".box_False_letters button")
 let remaining_false_letters = document.querySelector(".remaining_false_letters")
 const result_button = document.querySelector(".result_button")
+let scoreValueEl = document.querySelector(".score .score_value")
 
 
 
@@ -63,6 +67,7 @@ choosing_word_level = ()=>{
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord[index]
             btn.classList.remove("filled")
+            btn.classList.remove("false_filled")
         })
     }
     if(section_level == 1){
@@ -77,6 +82,8 @@ choosing_word_level = ()=>{
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord2[index]
             btn.classList.remove("filled")
+            btn.classList.remove("false_filled")
+
         })
     }
     if(section_level == 2){
@@ -92,6 +99,8 @@ choosing_word_level = ()=>{
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord3[index]
             btn.classList.remove("filled")
+            btn.classList.remove("false_filled")
+
         })
     }
     if(section_level == 3){
@@ -107,11 +116,12 @@ choosing_word_level = ()=>{
         buttons_word.forEach((btn , index)=>{
             btn.textContent = randomWord4[index]
             btn.classList.remove("filled")
+            btn.classList.remove("false_filled")
+
         })
     }
 }
 choosing_word_level()
-
 
 
 
@@ -128,6 +138,11 @@ const guessing_word = ()=> {
 
         guess_value = input.value.trim().toLowerCase()  // the letter we guess
         input.value = ""
+
+        // start the timer
+        if(!timer){ 
+            timer = setInterval(countDown , 1000)
+        }
 
         buttons_word.forEach(btn =>{
             letter = btn.textContent.trim().toLowerCase()
@@ -149,10 +164,14 @@ const guessing_word = ()=> {
         console.log("the number of fill buttons :" , number_fill)
         // the level the word is found - win level logic
         if (number_fill == buttons_word.length && section_level<3){
+            scoreValueEl.textContent = `${Number(scoreValueEl.textContent) + 10}`
             result_button.style.display = "inline-block"
             result_button.textContent= "Next Level"
         }
         if (number_fill == buttons_word.length && section_level==3) {
+            scoreValueEl.textContent = `${Number(scoreValueEl.textContent) + 10}`
+            // stop timer
+            clearInterval(timer)
             result_button.style.display = "inline-block"
             result_button.textContent= "EndGame"
             result_button.style.color = "green"
@@ -175,6 +194,13 @@ const guessing_word = ()=> {
         }
         // the level the word is not found - lose level logic
         if (remaining_false_letters.textContent === '0'){
+
+            for (let i =0  ; i<buttons_word.length ; i++){
+                btn = buttons_word[i]
+                if (!btn.classList.contains("filled")){
+                        btn.classList.add("false_filled")
+                }
+            }
             result_button.style.display = "inline-block"
             result_button.textContent= "Play Again"
         }
@@ -220,6 +246,29 @@ result_button.addEventListener("click" , ()=>{
         } 
     }
 })
+// timer
+
+
+const countDown = ()=>{
+    let minutes = Math.floor(time/60)
+    let seconds = time % 60 
+
+    minutes = minutes <10 ? "0" + minutes : minutes
+    seconds = seconds < 10 ? "0" + seconds : seconds
+
+    countDownEl.textContent = `${minutes}:${seconds}`
+
+    time--
+    // end of time
+    if(time<0){
+        clearInterval(timer)
+        countDownEl.textContent = "00:00"
+    }
+}
+
+
+
+
 
 
 
